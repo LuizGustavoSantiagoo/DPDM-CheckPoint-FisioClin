@@ -1,0 +1,55 @@
+services:
+  
+  app:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api_laravel
+    volumes:
+      - ./api:/var/www/html
+      - vendor:/var/www/html/vendor
+      - storage:/var/www/html/storage
+    environment:
+      - "DB_HOST=db"
+      - "DB_PORT=3306"
+      - "DB_DATABASE=api"
+      - "DB_USERNAME=root"
+      - "DB_PASSWORD=rootpassword"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: servidor_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./api:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: api
+      # Define a senha do usuário root
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "33061:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+volumes:
+  db-data:
+  vendor:
+  storage:

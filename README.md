@@ -38,7 +38,7 @@ A arquitetura do projeto será baseada em uma API RESTful desenvolvida com o fra
 ## Planejamento de Sprints
 O desenvolvimento do projeto será dividido em sprints, focando na entrega contínua de valor.
 
-## Sprint 1
+## Sprint 1 (✓)
 Foco: Estrutura e Autenticação (Equipe)
 
 [ ] Configuração do ambiente de desenvolvimento (React Native, PHP, Composer, Laravel, MySQL).
@@ -49,7 +49,7 @@ Foco: Estrutura e Autenticação (Equipe)
 
 [ ] Desenvolvimento dos endpoints da API (rotas e controllers) para autenticação da Equipe.
 
-## Sprint 2
+## Sprint 2 ()
 Foco: Gerenciamento de Pacientes
 
 [ ] Desenvolvimento dos endpoints da API para CRUD (Criar, Ler, Atualizar, Deletar) de Pacientes.
@@ -58,7 +58,7 @@ Foco: Gerenciamento de Pacientes
 
 [ ] Implementação do formulário para cadastrar e editar pacientes.
 
-## Sprint 3
+## Sprint 3 ()
 Foco: Gerenciamento de Atendimentos
 
 [ ] Desenvolvimento dos endpoints da API para CRUD de Atendimentos.
@@ -69,7 +69,7 @@ Foco: Gerenciamento de Atendimentos
 
 [ ] Implementação da tela de detalhes do atendimento para adicionar anotações (prontuário).
 
-## Sprint 4
+## Sprint 4 ()
 Foco: Refinamento e Testes
 
 [ ] Funcionalidade para alterar o status do atendimento (Concluído, Cancelado).

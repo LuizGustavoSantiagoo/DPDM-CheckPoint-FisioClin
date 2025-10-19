@@ -38,6 +38,8 @@ A arquitetura do projeto será baseada em uma API RESTful desenvolvida com o fra
 ## Planejamento de Sprints
 O desenvolvimento do projeto será dividido em sprints, focando na entrega contínua de valor.
 
+## telas implementadas <a href="https://www.youtube.com/watch?v=tqJnYOcl1NQ">Link</a>
+
 ## Sprint 1 (✓)
 Foco: Estrutura e Autenticação (Equipe)
 

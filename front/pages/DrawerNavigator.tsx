@@ -12,7 +12,8 @@ const Drawer = createDrawerNavigator<DrawerParamList>();
 
 const DrawerNavigator = () => {
   return(
-    <Drawer.Navigator>
+    <Drawer.Navigator 
+    >
 
       <Drawer.Screen name="Home" component={Home} />
     </Drawer.Navigator>

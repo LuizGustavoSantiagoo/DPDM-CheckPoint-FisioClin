@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 interface InputPasswordProps {
   label?: string;
@@ -9,6 +10,14 @@ interface InputPasswordProps {
   onChangeText ?: (text: string) => void;
 }
 
+const theme = () => ({
+  colors: {
+    primary: '#4896b8',
+    underlineColor: 'transparent',
+    background: '#ffffff',
+    text: '#000000',
+  },
+});
 
 const InputText = ({ label, placeholder, model, value, onChangeText }: InputPasswordProps) => {
   const [text, setText] = useState('');
@@ -18,11 +27,21 @@ const InputText = ({ label, placeholder, model, value, onChangeText }: InputPass
       mode={model}
       label={label}
       placeholder={placeholder}
+      theme={theme()}
       value={value}
       onChangeText={onChangeText}
       right={<TextInput.Affix />}
+      style={style.input} 
     />
   );
 };
+
+const style = StyleSheet.create({
+  input: {
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: '#ffffff',
+  },
+});
 
 export default InputText;

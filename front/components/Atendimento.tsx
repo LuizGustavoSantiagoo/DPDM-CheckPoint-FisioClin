@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 interface AtendimentoProps {
   nomePaciente: string;
@@ -20,18 +20,18 @@ const Atendimento = ({nomePaciente, dataAtendimento, descricao, horario}: Atendi
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   container: {
     padding: 10,
     borderWidth: 1,
     borderColor: "#4093ba",
     margin: 10,
     borderRadius: 5,
-    },
-    text: {
-      fontWeight: "bold",
-      marginBottom: 5,
-    },
-};
+  },
+  text: {
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+});
 
 export default Atendimento;

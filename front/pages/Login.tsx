@@ -1,16 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
-import InputPassword from "../components/inputPassword";
-import InputText from "../components/inputText";
-import ButtonComponent from "../components/button";
+import InputPassword from "../components/InputPassword";
+import InputText from "../components/InputText";
+import ButtonComponent from "../components/ButtonComponent";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { loginUser } from "../services/userService";
 import * as SecureStore from "expo-secure-store";
 import { setAuth } from "../services/authStore";
-import { DrawerNavigatorProps } from "@react-navigation/drawer";
-import { StackScreenProps } from "@react-navigation/stack";
+type RootStackParamList = {
+  Login: undefined;
+  Register: undefined;
+  MainApp: undefined;
+  Home: undefined;
+};
 
-type LoginScreenProps = StackScreenProps<DrawerNavigatorProps, 'Login'>;
+type LoginScreenProps = NativeStackNavigationProp<RootStackParamList>;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,9 +52,8 @@ const Login = () => {
       setSuccessMessage(response.message);
 
       if (response.token) {
-
-        navigation.navigate("Home");
-      
+        // Go to the Drawer app so the header can see all drawer routes
+        navigation.navigate("MainApp");
       }
 
     } catch (e) {

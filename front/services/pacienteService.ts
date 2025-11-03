@@ -12,8 +12,12 @@ export type PacienteCreate = {
   sobrenome: string;
   endereco: string;
   telefone: string;
-  data_nascimento?: string; // formato recomendado: YYYY-MM-DD
+  data_nascimento?: string;
+  updated_at?: string;
+  created_at?: string;
 };
+
+export type Paciente = PacienteCreate & { id: number };
 
 export const createPaciente = async (postData: PacienteCreate) => {
   try {
@@ -24,16 +28,26 @@ export const createPaciente = async (postData: PacienteCreate) => {
   } catch (error: any) {
     const status = error?.response?.status;
     const data = error?.response?.data;
-    console.error("Error creating paciente:", status, data ?? error?.message);
     throw error;
   }
 };
 
-export const getPacientes = async () => {
+export const getPacientes = async (): Promise<Paciente[]> => {
   try {
-    const response = await clienteApi.get("/pacientes");
-    return response.data;
+    const response = await clienteApi.get<{ message: string; data: Paciente[] }>("/pacientes");
+    return response.data?.data ?? [];
   } catch (error) {
-    console.error("Error fetching pacientes:", error);
+    throw error;
   }
 };
+
+export const searchPacientes = async (nome: string): Promise<Paciente[]> => {
+  try {
+    const safeNome = encodeURIComponent(nome);
+    const response = await clienteApi.get<{ message: string; data: Paciente[] }>(`/pacientes/${safeNome}`);
+    return response.data?.data ?? [];
+  } catch (error) {
+    console.error("Error searching pacientes:", error);
+    throw error;
+  }
+}

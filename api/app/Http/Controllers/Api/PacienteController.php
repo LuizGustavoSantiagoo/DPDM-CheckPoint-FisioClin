@@ -39,11 +39,11 @@ class PacienteController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(string $nome)
     {
 
         try {
-            $paciente = Paciente::findOrFail($id);
+            $paciente = Paciente::where('nome', 'like', '%' . $nome . '%')->orWhere('sobrenome', 'like', '%' . $nome . '%')->get();
 
             return response()->json([
                 'message' => 'Detalhes do paciente',

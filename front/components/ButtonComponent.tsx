@@ -7,10 +7,11 @@ interface ButtonProps {
   mode?: "text" | "outlined" | "contained";
   onPress?: () => void;
   children?: ReactNode;
+  disabled?: boolean;
 }
 
-const ButtonComponent = ({ icon, mode, onPress, children }: ButtonProps) => (
-  <Button icon={icon} mode={mode} onPress={onPress} style={styles.button}>
+const ButtonComponent = ({ icon, mode, onPress, children, disabled }: ButtonProps) => (
+  <Button icon={icon} mode={mode} onPress={onPress} disabled={disabled} style={styles.button}>
     {children}
   </Button>
 );

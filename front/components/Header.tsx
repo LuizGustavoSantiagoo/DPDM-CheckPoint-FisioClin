@@ -20,10 +20,8 @@ type MenuItem = {
 const DRAWER_WIDTH = 280;
 
 const MENU_ITEMS: ReadonlyArray<MenuItem> = [
-  { route: 'Home', icon: 'home-outline', label: 'Início' },
-  { route: 'Profile', icon: 'account-circle-outline', label: 'Perfil' },
-  { route: 'Atendimentos', icon: 'calendar-check-outline', label: 'Atendimentos' },
-  { route: 'Pacientes', icon: 'account-group-outline', label: 'Pacientes' },
+  { route: 'Home', icon: 'home', label: 'Tela inicial' },
+  { route: 'User', icon: 'account-group', label: 'Pacientes' },
 ];
 
 const Header: React.FC = () => {

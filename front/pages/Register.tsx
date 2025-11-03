@@ -1,20 +1,25 @@
 import * as React from "react";
-import ButtonComponent from "../components/button";
+import ButtonComponent from "../components/ButtonComponent";
 import { StyleSheet, Text, View } from "react-native";
-import InputPassword from "../components/inputPassword";
-import InputText from "../components/inputText";
-import { useNavigation } from "@react-navigation/core";
+import InputPassword from "../components/InputPassword";
+import InputText from "../components/InputText";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Alert } from 'react-native';
 import { createPost } from "../services/userService";
-import { DrawerNavigatorProps } from "@react-navigation/drawer";
-import { StackScreenProps } from "@react-navigation/stack";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-type RegisterScreenProps = StackScreenProps<DrawerNavigatorProps, 'Register'>;
+// Define the param list for the root stack that contains Register and Login
+type RootStackParamList = {
+  Login: undefined;
+  Register: undefined;
+};
+
+type RegisterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Register'>;
 
 
 const Register = () => {
-  const navigation = useNavigation<RegisterScreenProps>();
+  const navigation = useNavigation<RegisterScreenNavigationProp>();
 
   const [nome, setNome] = useState('');
   const [sobrenome, setSobrenome] = useState('');

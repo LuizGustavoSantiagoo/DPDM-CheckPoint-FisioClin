@@ -1,6 +1,6 @@
 import React from "react";
 import { DatePickerInput } from "react-native-paper-dates";
-import { StyleSheet, StyleProp, ViewStyle } from "react-native";
+import { StyleSheet, StyleProp, ViewStyle, View } from "react-native";
 
 interface InputDateProps {
   label?: string;
@@ -29,17 +29,16 @@ function InputDate({
 }: InputDateProps) {
 
   return (
-    <DatePickerInput
-      mode={mode ?? "outlined"}
-      theme={theme()}
-      locale="pt-BR"
-      label={label}
-      value={value}
-      onChange={(d) => onChange?.(d)}
-      inputMode="start"
-    />
+      <DatePickerInput
+        mode={mode ?? "outlined"}
+        theme={theme()}
+        locale="pt"
+        label={label}
+        value={value}
+        onChange={(d) => onChange?.(d)}
+        inputMode="start"
+      />
   );
 }
-
 
 export default InputDate;

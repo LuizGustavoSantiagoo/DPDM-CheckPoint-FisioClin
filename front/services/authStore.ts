@@ -16,13 +16,19 @@ interface User {
 export async function setAuth(token: string, user: User): Promise<void> {
   await SecureStore.setItemAsync(TOKEN_KEY, token);
   await SecureStore.setItemAsync(USER_KEY, JSON.stringify(user));
+  await SecureStore.setItemAsync("id", user.id.toString());
+  await SecureStore.setItemAsync("nome", user.nome);
+  await SecureStore.setItemAsync("sobrenome", user.sobrenome);
+  await SecureStore.setItemAsync("email", user.email);
+  await SecureStore.setItemAsync("funcao", user.funcao);
+  await SecureStore.setItemAsync("crefito", user.crefito);
 }
 
 export async function getToken(): Promise<string | null> {
   return await SecureStore.getItemAsync(TOKEN_KEY);
 }
 
-export async function getUser<T = any>(): Promise<T | null> {
+export async function getUser<T = User>(): Promise<T | null> {
   const raw = await SecureStore.getItemAsync(USER_KEY);
   if (!raw) return null;
   try {

@@ -22,9 +22,7 @@ export const getAtendimentos = async (): Promise<AtendimentoCreate[]> => {
       data: AtendimentoCreate[];
     }>("/atendimentos");
     return response.data?.data ?? [];
-    console.log(response.data);
   } catch (error) {
-    console.error("Erro ao buscar atendimentos:", error);
     throw error;
   }
 };
@@ -33,11 +31,9 @@ export const createAtendimento = async (postData: AtendimentoCreate) => {
   try {
     const response = await clienteApi.post("/atendimentos", postData);
     return response;
-    console.log("Atendimento criado com sucesso:", response.data);
   } catch (error: any) {
     const status = error?.response?.status;
     const data = error?.response?.data;
-    console.log("Erro ao criar atendimento:", { status, data });
     throw error;
   }
 };

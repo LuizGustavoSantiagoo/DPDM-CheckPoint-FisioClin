@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, Text } from "react-native";
 import Header from "../components/Header";
 import InputText from "../components/InputText";
 import InputDate from "../components/InputDate";
@@ -115,7 +115,11 @@ const Atendimentos = () => {
           onChangeText={setObservacoesPaciente}
         />
 
-        
+        {loading ? (
+          <Text style={styles.loading}>{loading}</Text>
+        ) : null}
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+        {success ? <Text style={styles.success}>{success}</Text> : null}
 
         <ButtonComponent
           mode="contained"

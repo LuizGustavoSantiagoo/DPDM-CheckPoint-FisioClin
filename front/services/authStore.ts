@@ -22,7 +22,7 @@ export async function getToken(): Promise<string | null> {
   return await SecureStore.getItemAsync(TOKEN_KEY);
 }
 
-export async function getUser<T = any>(): Promise<T | null> {
+export async function getUser<T = User>(): Promise<T | null> {
   const raw = await SecureStore.getItemAsync(USER_KEY);
   if (!raw) return null;
   try {

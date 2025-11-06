@@ -2,5 +2,9 @@
   "dependencies": {
     "react-native-pager-view": "^6.9.1",
     "react-native-paper-tabs": "^0.11.4"
+  },
+  "devDependencies": {
+    "@tsconfig/react-native": "^3.0.7",
+    "typescript": "^5.9.3"
   }
 }

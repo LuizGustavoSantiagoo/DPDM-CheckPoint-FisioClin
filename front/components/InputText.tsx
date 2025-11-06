@@ -8,6 +8,7 @@ interface InputPasswordProps {
   model?: 'flat' | 'outlined';
   value ?: string;
   onChangeText ?: (text: string) => void;
+  multiline?: boolean;
 }
 
 const theme = () => ({
@@ -19,7 +20,7 @@ const theme = () => ({
   },
 });
 
-const InputText = ({ label, placeholder, model, value, onChangeText }: InputPasswordProps) => {
+const InputText = ({ label, placeholder, model, value, onChangeText, multiline }: InputPasswordProps) => {
   const [text, setText] = useState('');
 
   return (
@@ -31,15 +32,15 @@ const InputText = ({ label, placeholder, model, value, onChangeText }: InputPass
       value={value}
       onChangeText={onChangeText}
       right={<TextInput.Affix />}
-      style={style.input} 
+      style={style.input}
+      multiline={multiline}
     />
   );
 };
 
 const style = StyleSheet.create({
   input: {
-    marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 6,
     backgroundColor: '#ffffff',
   },
 });

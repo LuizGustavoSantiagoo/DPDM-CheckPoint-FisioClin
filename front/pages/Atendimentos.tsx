@@ -22,8 +22,14 @@ const Atendimentos = () => {
 
   useEffect(() => {
     const fetchFisioId = async () => {
-      const id = await SecureStore.getItemAsync("id");
-      setFisioId(id);
+      const usuarioString = await SecureStore.getItemAsync("user");
+      
+      if(usuarioString != null) {
+        const usuario = JSON.parse(usuarioString);
+        const id = usuario.id;
+        setFisioId(id);
+      }
+
     };
     fetchFisioId();
   }, []);
@@ -38,9 +44,11 @@ const Atendimentos = () => {
 
     const postData = {
       paciente_id: paciente,
-      fisio_id: parseInt(fisioId, 10),
-      data_atendimento: dataAtendimento ? new Date(dataAtendimento).toISOString().split("T")[0]
-        : undefined,
+      fisio_id: fisioId,
+      data_atendimento:
+        dataAtendimento instanceof Date && !isNaN(dataAtendimento.getTime())
+          ? dataAtendimento.toISOString().split("T")[0]
+          : undefined,
       descricao: descricao.trim(),
       observacao: observacoes.trim(),
       observacao_paciente: observacoesPaciente.trim(),

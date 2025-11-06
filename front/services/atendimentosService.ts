@@ -9,7 +9,7 @@ import clienteApi from "./clienteApi";
 export type AtendimentoCreate = {
   paciente_id: number;
   fisio_id: number;
-  data_atendimento: Date | undefined;
+  data_atendimento: Date;
   descricao?: string;
   observacao?: string;
   observacao_paciente?: string;
@@ -32,8 +32,6 @@ export const createAtendimento = async (postData: AtendimentoCreate) => {
     const response = await clienteApi.post("/atendimentos", postData);
     return response;
   } catch (error: any) {
-    const status = error?.response?.status;
-    const data = error?.response?.data;
     throw error;
   }
 };

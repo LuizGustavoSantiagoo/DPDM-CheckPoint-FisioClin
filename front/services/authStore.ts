@@ -16,12 +16,6 @@ interface User {
 export async function setAuth(token: string, user: User): Promise<void> {
   await SecureStore.setItemAsync(TOKEN_KEY, token);
   await SecureStore.setItemAsync(USER_KEY, JSON.stringify(user));
-  await SecureStore.setItemAsync("id", user.id.toString());
-  await SecureStore.setItemAsync("nome", user.nome);
-  await SecureStore.setItemAsync("sobrenome", user.sobrenome);
-  await SecureStore.setItemAsync("email", user.email);
-  await SecureStore.setItemAsync("funcao", user.funcao);
-  await SecureStore.setItemAsync("crefito", user.crefito);
 }
 
 export async function getToken(): Promise<string | null> {

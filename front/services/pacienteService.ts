@@ -44,10 +44,20 @@ export const getPacientes = async (): Promise<Paciente[]> => {
 export const searchPacientes = async (nome: string): Promise<Paciente[]> => {
   try {
     const safeNome = encodeURIComponent(nome);
-    const response = await clienteApi.get<{ message: string; data: Paciente[] }>(`/pacientes/${safeNome}`);
+    const response = await clienteApi.get<{ message: string; data: Paciente[] }>(`/pacientes/nome/${safeNome}`);
     return response.data?.data ?? [];
   } catch (error) {
     console.error("Error searching pacientes:", error);
     throw error;
   }
 }
+
+export const getPacienteById = async (id: number): Promise<Paciente> => {
+  try {
+    const response = await clienteApi.get<{ message: string; data: Paciente }>(`/pacientes/${id}`);
+    return response.data?.data;
+  } catch (error) {
+    console.error("Error fetching paciente by ID:", error);
+    throw error;
+  }
+};

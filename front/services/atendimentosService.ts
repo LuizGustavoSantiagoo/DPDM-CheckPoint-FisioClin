@@ -27,6 +27,18 @@ export const getAtendimentos = async (): Promise<AtendimentoCreate[]> => {
   }
 };
 
+export const getAtendimentosByIDPaciente = async (pacienteId: number): Promise<AtendimentoCreate[]> => {
+  try {
+    const response = await clienteApi.get<{
+      message: string;
+      data: AtendimentoCreate[];
+    }>("/atendimentos/paciente/" + pacienteId);
+    return response.data?.data ?? [];
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const createAtendimento = async (postData: AtendimentoCreate) => {
   try {
     const response = await clienteApi.post("/atendimentos", postData);

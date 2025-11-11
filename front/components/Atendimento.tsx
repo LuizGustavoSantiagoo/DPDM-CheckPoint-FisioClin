@@ -5,17 +5,21 @@ interface AtendimentoProps {
   dataAtendimento: string;
   descricao: string;
   horario?: string;
+  fisio?: string;
+  observacao?: string;
+  observacaoPaciente?: string;
 }
 
-const Atendimento = ({nomePaciente, dataAtendimento, descricao, horario}: AtendimentoProps) => {
+const Atendimento = ({nomePaciente, dataAtendimento, descricao, horario, fisio,observacao, observacaoPaciente}: AtendimentoProps) => {
   return (
     <View style={styles.container}>
-
         <Text><Text style={styles.text}>Paciente:</Text> {nomePaciente}</Text>
+        <Text><Text style={styles.text}>Fisioterapeuta:</Text> {fisio}</Text>
         <Text><Text style={styles.text}>Data:</Text> {dataAtendimento}</Text>
         <Text><Text style={styles.text}>Descrição:</Text> {descricao}</Text>
+        <Text><Text style={styles.text}>Observação:</Text> {observacao}</Text>
+        <Text><Text style={styles.text}>Observação do Paciente:</Text> {observacaoPaciente}</Text>
         <Text><Text style={styles.text}>Horário:</Text> {horario}</Text>
-
     </View>
   );
 };

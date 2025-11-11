@@ -39,11 +39,29 @@ class PacienteController extends Controller
         }
     }
 
-    public function show(string $nome)
-    {
+    public function showByName( string $nome) {
 
         try {
             $paciente = Paciente::where('nome', 'like', '%' . $nome . '%')->orWhere('sobrenome', 'like', '%' . $nome . '%')->get();
+
+            return response()->json([
+                'message' => 'Detalhes do paciente',
+                'data' => $paciente
+            ], 200);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Paciente não encontrado',
+                'error' => $e->getMessage()
+            ], 404);
+        }
+
+    }
+
+    public function show(string $id)
+    {
+        try {
+            $paciente = Paciente::findOrFail($id);
 
             return response()->json([
                 'message' => 'Detalhes do paciente',

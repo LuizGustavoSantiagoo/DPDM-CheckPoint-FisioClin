@@ -25,6 +25,22 @@ class AtendimentosController extends Controller
         return response()->json($atendimentos);
     }
 
+    public function showByIdPaciente(string $id_paciente)
+    {
+        try {
+            $atendimentos = Atendimentos::where('paciente_id', $id_paciente)->get();
+
+            return response()->json([
+                'data' => $atendimentos
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao buscar atendimentos',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request)
     {
 

@@ -21,6 +21,10 @@ import {
 } from "../services/pacienteService";
 import InputDate from "../components/InputDate";
 import { formatDate } from "../services/util";
+import { useNavigation } from "@react-navigation/native";
+import { DrawerParamList } from "./DrawerNavigator";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
+import HomePaciente from "./HomePaciente";
 
 const Pacientes = () => {
   const [nome, setNome] = useState("");
@@ -35,6 +39,8 @@ const Pacientes = () => {
   const [loadingList, setLoadingList] = useState(false);
 
   const [pesquisa, setPesquisa] = useState("");
+
+  type NavigationProp = NativeStackNavigationProp<DrawerParamList>;
 
   const fetchPacientes = async () => {
     try {
@@ -72,7 +78,6 @@ const Pacientes = () => {
       const response = await createPaciente(payload);
       if (response) {
         Alert.alert("Sucesso", "Paciente criado com sucesso!");
-        console.log("Paciente criado:", response);
         fetchPacientes();
 
         setNome("");
@@ -86,11 +91,6 @@ const Pacientes = () => {
     } catch (error: any) {
       const serverMsg =
         error?.response?.data?.message || error?.message || "Erro desconhecido";
-      console.error(
-        "Erro ao criar paciente:",
-        error?.response?.status,
-        error?.response?.data
-      );
       Alert.alert("Erro", `Falha ao criar paciente. ${serverMsg}`);
     } finally {
       setLoading(false);
@@ -113,12 +113,22 @@ const Pacientes = () => {
       setLoadingList(true);
       const resultados = await searchPacientes(pesquisa.trim());
       setUsuarios(resultados);
-      console.log("Resultados da pesquisa:", resultados);
     } catch (error) {
-      console.error("Erro ao pesquisar pacientes:", error);
     } finally {
       setLoadingList(false);
     }
+  };
+
+  const navigation = useNavigation<NavigationProp>();
+
+  const perfil = (idPaciente: number) => {
+
+    if (idPaciente != null && idPaciente != undefined) {
+      navigation.navigate("HomePaciente", { id: idPaciente });
+    } else {
+      Alert.alert("Erro", "ID do paciente inválido.");
+    }
+    
   };
 
   return (
@@ -191,7 +201,9 @@ const Pacientes = () => {
                   paddingBottom: 24,
                   flexGrow: usuarios.length ? 0 : 1,
                 }}
-                ListHeaderComponent={<Text style={styles.title}>Pacientes</Text>}
+                ListHeaderComponent={
+                  <Text style={styles.title}>Pacientes</Text>
+                }
                 ListEmptyComponent={
                   <View
                     style={{
@@ -231,7 +243,9 @@ const Pacientes = () => {
 
                     <ButtonComponent
                       mode="contained"
-                      onPress={() => {}}
+                      onPress={() => {
+                        perfil(item.id);
+                      }}
                       children="Visualizar"
                       icon="eye"
                     />

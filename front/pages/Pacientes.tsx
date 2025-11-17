@@ -18,6 +18,7 @@ import {
   type PacienteCreate,
   type Paciente,
   searchPacientes,
+  deletePaciente,
 } from "../services/pacienteService";
 import InputDate from "../components/InputDate";
 import { formatDate } from "../services/util";
@@ -130,6 +131,30 @@ const Pacientes = () => {
     }
     
   };
+
+  const handleDeleteUser = async (idPaciente: number) => {
+
+    Alert.alert("Confirmação", "Deseja realmente excluir este paciente?", [
+      {
+        text: "Cancelar",
+        style: "cancel",
+      },
+      {
+        text: "Excluir",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await deletePaciente(idPaciente);
+            Alert.alert("Sucesso", "Paciente excluído com sucesso.");
+            fetchPacientes();
+          } catch (error) {
+            Alert.alert("Erro", "Falha ao excluir o paciente.");
+          }
+        },
+      },
+    ]);
+
+  }
 
   return (
     <View style={styles.screen}>
@@ -249,6 +274,8 @@ const Pacientes = () => {
                       children="Visualizar"
                       icon="eye"
                     />
+
+                    <ButtonComponent mode="contained" children="Excluir" onPress={() => handleDeleteUser(item.id)} icon="delete"/>
                   </View>
                 )}
               />

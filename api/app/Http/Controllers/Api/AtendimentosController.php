@@ -28,8 +28,7 @@ class AtendimentosController extends Controller
     public function showByIdPaciente(string $id_paciente)
     {
         try {
-            $atendimentos = Atendimentos::where('paciente_id', $id_paciente)->get();
-
+            $atendimentos = Atendimentos::where('paciente_id', $id_paciente)->with(['paciente:id,nome,sobrenome', 'fisio:id,nome'])->get();
             return response()->json([
                 'data' => $atendimentos
             ], 200);
@@ -68,11 +67,9 @@ class AtendimentosController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Update an existing atendimento
     }
 
     public function destroy($id)
     {
-        // Delete an atendimento
     }
 }

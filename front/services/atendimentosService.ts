@@ -7,12 +7,22 @@ import clienteApi from "./clienteApi";
  */
 
 export type AtendimentoCreate = {
+  id?: number;
   paciente_id: number;
   fisio_id: number;
   data_atendimento: Date;
   descricao?: string;
   observacao?: string;
   observacao_paciente?: string;
+  fisio: {
+    id: number;
+    nome: string;
+  };
+  paciente: {
+    id: number;
+    nome: string;
+    sobrenome: string;
+  };
 };
 
 export const getAtendimentos = async (): Promise<AtendimentoCreate[]> => {

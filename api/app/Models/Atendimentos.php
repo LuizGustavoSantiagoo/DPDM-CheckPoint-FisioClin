@@ -16,4 +16,14 @@ class Atendimentos extends Model
         'observacao',
         'observacao_paciente',
     ];
+
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class, 'paciente_id');
+    }
+
+    public function fisio()
+    {
+        return $this->belongsTo(User::class, 'fisio_id');
+    }
 }

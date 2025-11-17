@@ -16,4 +16,14 @@ class Paciente extends Model
         'telefone',
         'endereco',
     ];
+
+    public function atendimentos()
+    {
+        return $this->hasMany(Atendimentos::class);
+    }
+
+    public function getNomeCompletoAttribute()
+    {
+        return "{$this->nome} {$this->sobrenome}";
+    }
 }

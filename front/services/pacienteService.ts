@@ -61,3 +61,12 @@ export const getPacienteById = async (id: number): Promise<Paciente> => {
     throw error;
   }
 };
+
+export const deletePaciente = async (id: number): Promise<void> => {
+  try {
+    await clienteApi.delete(`/pacientes/${id}`);
+  } catch (error) {
+    console.error("Error deleting paciente:", error);
+    throw error;
+  }
+};

@@ -78,12 +78,25 @@ class PacienteController extends Controller
 
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     public function destroy(string $id)
     {
-        //
+        try {
+            $paciente = Paciente::findOrFail($id);
+            $paciente->delete();
+
+            return response()->json([
+                'message' => 'Paciente excluído com sucesso'
+            ], 200);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao excluir paciente',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
 }

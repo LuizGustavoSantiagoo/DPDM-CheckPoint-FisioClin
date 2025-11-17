@@ -15,11 +15,11 @@ const Atendimento = ({nomePaciente, dataAtendimento, descricao, horario, fisio,o
     <View style={styles.container}>
         <Text><Text style={styles.text}>Paciente:</Text> {nomePaciente}</Text>
         <Text><Text style={styles.text}>Fisioterapeuta:</Text> {fisio}</Text>
-        <Text><Text style={styles.text}>Data:</Text> {dataAtendimento}</Text>
-        <Text><Text style={styles.text}>Descrição:</Text> {descricao}</Text>
+        <Text><Text style={styles.text}>Data do Atendimento:</Text> {dataAtendimento}</Text> 
+        <Text><Text style={styles.text}>Descrição:</Text> {descricao}</Text> 
         <Text><Text style={styles.text}>Observação:</Text> {observacao}</Text>
-        <Text><Text style={styles.text}>Observação do Paciente:</Text> {observacaoPaciente}</Text>
-        <Text><Text style={styles.text}>Horário:</Text> {horario}</Text>
+        <Text><Text style={styles.text}>Observação do Paciente:</Text> {observacaoPaciente}</Text> 
+        { horario && <Text><Text style={styles.text}>Horário:</Text> {horario}</Text> }
     </View>
   );
 };

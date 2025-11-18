@@ -70,3 +70,13 @@ export const deletePaciente = async (id: number): Promise<void> => {
     throw error;
   }
 };
+
+export const updatePaciente = async (id: number, data: PacienteCreate): Promise<Paciente> => {
+  try {
+    const response = await clienteApi.put<{ message: string; data: Paciente }>(`/pacientes/${id}`, data);
+    return response.data?.data;
+  } catch (error) {
+    console.error("Error updating paciente:", error);
+    throw error;
+  }
+};

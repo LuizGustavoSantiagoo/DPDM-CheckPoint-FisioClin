@@ -1,3 +1,11 @@
+
+/**
+ * Recebe um valor de data/hora e retorna a data formatada como DD/MM/AAAA.
+ *
+ * @param datetimeValue O valor de data/hora (string, Date ou undefined).
+ * @returns A string da data formatada (DD/MM/AAAA) ou string vazia se inválido.
+ */
+
 export function formatDate(date?: string): string {
 
     const data = date?.replaceAll('-', '/') || '';
@@ -8,12 +16,6 @@ export function formatDate(date?: string): string {
 
 }
 
-/**
- * Recebe um valor de data/hora e retorna a data formatada como DD/MM/AAAA.
- *
- * @param datetimeValue O valor de data/hora (string, Date ou undefined).
- * @returns A string da data formatada (DD/MM/AAAA) ou string vazia se inválido.
- */
 export const formatDateOnly = (datetimeValue: string | Date | undefined): string => {
   if (!datetimeValue) {
     return "";

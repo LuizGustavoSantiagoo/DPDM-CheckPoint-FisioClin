@@ -52,7 +52,6 @@ const Login = () => {
       setSuccessMessage(response.message);
 
       if (response.token) {
-        // Go to the Drawer app so the header can see all drawer routes
         navigation.navigate("MainApp");
       }
 

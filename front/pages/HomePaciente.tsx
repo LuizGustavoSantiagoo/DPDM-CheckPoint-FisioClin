@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { DrawerParamList } from "./DrawerNavigator";
 import { View, Text, Alert, FlatList } from "react-native";
-import { getPacienteById, Paciente } from "../services/pacienteService";
+import { getPacienteById, Paciente, PacienteCreate, updatePaciente } from "../services/pacienteService";
 import { useNavigation } from "@react-navigation/native";
-import InputText from "../components/InputText";
-import InputDate from "../components/InputDate";
 import Header from "../components/Header";
 import { StyleSheet } from "react-native";
 import {
@@ -13,7 +11,9 @@ import {
   AtendimentoCreate,
 } from "../services/atendimentosService";
 import Atendimento from "../components/Atendimento";
-import { formatDateOnly } from "../services/util";
+import { formatDateOnly} from "../services/util";
+import ButtonComponent from "../components/ButtonComponent";
+import HeaderForm from "../components/HeaderFormPacientes";
 
 type HomePacienteScreenProps = NativeStackScreenProps<
   DrawerParamList,
@@ -25,6 +25,14 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
   const [paciente, setPaciente] = useState<Paciente | null>(null);
   const [atendimentos, setAtendimentos] = useState<AtendimentoCreate[]>([]);
 
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
+  const [dataNascimento, setDataNascimento] = useState<Date | undefined>(
+    undefined
+  );
+  const [endereco, setEndereco] = useState("");
+  const [telefone, setTelefone] = useState("");
+
   useEffect(() => {
     if (route.params?.id != null) {
       setAtendimentos([]);
@@ -32,7 +40,7 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
       handleGetPacienteDetails();
       handleGetAtendimentos();
     }
-  }, [route.params?.id]);
+  }, []);
 
   const handleGetPacienteDetails = () => {
     const { id } = route.params;
@@ -40,6 +48,15 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
     getPacienteById(id)
       .then((paciente) => {
         setPaciente(paciente);
+        setNome(paciente.nome);
+        setSobrenome(paciente.sobrenome);
+        setDataNascimento(
+          paciente.data_nascimento
+            ? new Date(paciente.data_nascimento)
+            : undefined
+        );
+        setEndereco(paciente.endereco);
+        setTelefone(paciente.telefone);
       })
       .catch((error) => {
         Alert.alert(
@@ -65,30 +82,31 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
       });
   };
 
-  const renderHeader = () => (
-    <View>
-      <View style={style.containerInputs}>
-        <Text style={style.title}>Informações do Paciente</Text>
-        <InputText label="Nome" value={paciente?.nome} />
-        <InputText label="Sobrenome" value={paciente?.sobrenome} />
-        <View style={style.inputDate}>
-          <InputDate
-            label="Data de Nascimento"
-            value={
-              paciente?.data_nascimento
-                ? new Date(paciente.data_nascimento)
-                : undefined
-            }
-          />
-        </View>
-        <InputText label="Endereço" value={paciente?.endereco} />
-      </View>
-      <View style={[style.containerInputs, { marginBottom: 0, alignItems: "center" }]}>
-        <Text style={style.title}>Histórico de Atendimentos</Text>
-        {atendimentos.length === 0 && renderEmpty()}
-      </View>
-    </View>
-  );
+  const hendleUpdatePaciente = (update: Partial<Paciente>) => {
+
+    if (!paciente) return;
+
+    const payload: PacienteCreate = {
+      nome: update.nome ?? paciente.nome,
+      sobrenome: update.sobrenome ?? paciente.sobrenome,
+      data_nascimento: update.data_nascimento !== undefined ? update.data_nascimento : paciente.data_nascimento,
+      endereco: update.endereco ?? paciente.endereco,
+      telefone: update.telefone ?? paciente.telefone,
+    };
+
+   updatePaciente(route.params.id, payload)
+     .then((response) => {
+       Alert.alert("Sucesso", "Paciente atualizado com sucesso.");
+       handleGetPacienteDetails();
+      handleGetAtendimentos();
+     })
+     .catch((error) => {
+       Alert.alert(
+         "Erro",
+         "Não foi possível atualizar o paciente. Tente novamente mais tarde."
+       );
+     });
+  }
 
   const renderEmpty = () => (
     <View style={{ paddingHorizontal: 16 }}>
@@ -107,7 +125,9 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
             <Atendimento
               dataAtendimento={formatDateOnly(item.data_atendimento)}
               descricao={item.descricao ?? ""}
-              nomePaciente={item.paciente?.nome + " " + item.paciente?.sobrenome}
+              nomePaciente={
+                item.paciente?.nome + " " + item.paciente?.sobrenome
+              }
               fisio={item.fisio?.nome ?? ""}
               observacao={item.observacao ?? ""}
               observacaoPaciente={item.observacao_paciente ?? ""}
@@ -115,7 +135,7 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
           </View>
         )}
         keyExtractor={(item) => item.id?.toString() ?? ""}
-        ListHeaderComponent={renderHeader}
+        ListHeaderComponent={<HeaderForm paciente={paciente} onSave={(update) => hendleUpdatePaciente(update)} />}
       />
     </View>
   );
@@ -147,10 +167,10 @@ const style = StyleSheet.create({
   },
   atendimentos: {
     marginHorizontal: 16,
-    marginVertical: 16,                                 
+    marginVertical: 16,
     backgroundColor: "#fff",
-    borderRadius: 8
-  }
+    borderRadius: 8,
+  },
 });
 
 export default HomePaciente;

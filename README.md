@@ -51,7 +51,7 @@ Foco: Estrutura e Autenticação (Equipe)
 
 [ ] Desenvolvimento dos endpoints da API (rotas e controllers) para autenticação da Equipe.
 
-## Sprint 2 ()
+## Sprint 2 (✓)
 Foco: Gerenciamento de Pacientes
 
 [ ] Desenvolvimento dos endpoints da API para CRUD (Criar, Ler, Atualizar, Deletar) de Pacientes.
@@ -60,7 +60,7 @@ Foco: Gerenciamento de Pacientes
 
 [ ] Implementação do formulário para cadastrar e editar pacientes.
 
-## Sprint 3 ()
+## Sprint 3 (✓)
 Foco: Gerenciamento de Atendimentos
 
 [ ] Desenvolvimento dos endpoints da API para CRUD de Atendimentos.
@@ -73,8 +73,6 @@ Foco: Gerenciamento de Atendimentos
 
 ## Sprint 4 ()
 Foco: Refinamento e Testes
-
-[ ] Funcionalidade para alterar o status do atendimento (Concluído, Cancelado).
 
 [ ] Testes completos do fluxo de ponta a ponta (front-end e API).
 

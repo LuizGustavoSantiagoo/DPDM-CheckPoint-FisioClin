@@ -55,7 +55,6 @@ const Register = () => {
     setSuccessMessage("");
 
     try {
-      
       const response = await createPost(postData);
       setSuccessMessage(`Registro criado com sucesso, Redirecionamento automatico em: 2 segundos.`);
 

@@ -8,6 +8,7 @@ interface User {
     nome: string;
     sobrenome: string;
     email: string;
+    senha_hash: string;
     funcao: string;
     crefito: string;
     status?: string;
@@ -32,13 +33,11 @@ export async function getUser<T = User>(): Promise<T | null> {
   }
 }
 
-// Clear auth data
 export async function clearAuth(): Promise<void> {
   await SecureStore.deleteItemAsync(TOKEN_KEY);
   await SecureStore.deleteItemAsync(USER_KEY);
 }
 
-// Quick check
 export async function isAuthenticated(): Promise<boolean> {
   const token = await getToken();
   return !!token;

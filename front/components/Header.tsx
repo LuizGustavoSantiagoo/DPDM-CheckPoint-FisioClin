@@ -6,6 +6,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import type { DrawerNavigationProp } from '@react-navigation/drawer';
 import type { DrawerParamList } from '../pages/DrawerNavigator';
+import { clearAuth } from '../services/authStore';
 
 type DrawerRoute = keyof DrawerParamList;
 
@@ -23,6 +24,8 @@ const MENU_ITEMS: ReadonlyArray<MenuItem> = [
   { route: 'Home', icon: 'home', label: 'Tela inicial' },
   { route: 'User', icon: 'account-group', label: 'Pacientes' },
   { route: 'Atendimentos', icon: 'plus-circle', label: 'Atendimentos' },
+  { route: 'UserHome', icon: 'account', label: 'Conta' },
+
 ];
 
 const Header: React.FC = () => {
@@ -51,9 +54,20 @@ const Header: React.FC = () => {
     });
   }, [animation]);
 
+  const handleLogout = React.useCallback(async () => {
+    await clearAuth();
+    closeDrawer();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Login' as never }],
+    });
+  }, [closeDrawer, navigation]);
+
   const handleNavigate = React.useCallback(
     (route: DrawerRoute) => {
+      
       const state = navigation.getState();
+
       if (state.routeNames.includes(route)) {
         navigation.navigate(route);
       }
@@ -109,6 +123,12 @@ const Header: React.FC = () => {
                   onPress={() => handleNavigate(item.route)}
                 />
               ))}
+
+              <ListItem
+                title="Sair"
+                leading={<Icon name="logout" size={24} color="#424242" />}
+                onPress={handleLogout}
+              />
             </Surface>
           </Animated.View>
         </View>

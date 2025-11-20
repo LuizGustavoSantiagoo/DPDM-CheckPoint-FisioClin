@@ -3,6 +3,7 @@ import Home from "./Home";
 import User from "./Pacientes";
 import Atendimentos from "./Atendimentos";
 import HomePaciente from "./HomePaciente";
+import UserHome from "./UserHome";
 
 export type DrawerParamList = {
   Home: undefined;
@@ -11,6 +12,8 @@ export type DrawerParamList = {
   Pacientes: undefined;
   User: undefined;
   HomePaciente: { id: number };
+  UserHome: undefined;
+  Logout: undefined;
 };
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -23,6 +26,7 @@ const DrawerNavigator = () => {
       <Drawer.Screen name="User" component={User} />
       <Drawer.Screen name="Atendimentos" component={Atendimentos} />
       <Drawer.Screen name="HomePaciente" component={HomePaciente} />
+      <Drawer.Screen name="UserHome" component={UserHome} />
     </Drawer.Navigator>
   );
 }

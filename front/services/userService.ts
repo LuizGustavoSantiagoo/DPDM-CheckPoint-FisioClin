@@ -37,3 +37,15 @@ export const getUsers = async () => {
     throw error;
   }
 };
+
+export const updateUser = async (userData: object, userId: string) => {
+
+  try {
+    const response = await clienteApi.put(`/users/${userId}`, userData);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error updating user:", error);
+    throw error;
+  }
+
+};

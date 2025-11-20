@@ -26,6 +26,7 @@ class UserController extends Controller
         $dados_validados = $request->validate([
             'nome' => 'required|string|max:255',
             'sobrenome' => 'required|string|max:255',
+            'crefito' => 'required|max:255',
             'email' => 'required|email',
             'senha' => 'required|string|min:8',
         ]);
@@ -39,7 +40,7 @@ class UserController extends Controller
             'email' => $dados_validados['email'],
             'senha_hash' => $dados_validados['senha'],
             'funcao' => 'fisioterapeuta',
-            'crefito' => "",
+            'crefito' => $dados_validados['crefito'],
             'status' => false,
         ]);
         
@@ -65,7 +66,7 @@ class UserController extends Controller
         $dados_validados = $request->validate([
             'nome' => 'sometimes|required|string|max:255',
             'sobrenome' => 'sometimes|required|string|max:255',
-            'email' => 'sometimes|required|email|unique:users,email,',
+            'email' => 'sometimes|required|email|unique:users,email,' . $id,
             'senha' => 'sometimes|required|string|min:8|confirmed',
             'funcao' => 'sometimes|required|in:fisioterapeuta,admin',
             'crefito' => 'sometimes|nullable|string|max:255',
@@ -73,6 +74,7 @@ class UserController extends Controller
         ]);
 
         if (isset($dados_validados['senha'])) {
+            $dados_validados['senha'] = bcrypt($dados_validados['senha']);
             $dados_validados['senha_hash'] = $dados_validados['senha'];
             unset($dados_validados['senha']);
         }

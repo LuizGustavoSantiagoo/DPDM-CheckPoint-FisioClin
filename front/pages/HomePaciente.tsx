@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { DrawerParamList } from "./DrawerNavigator";
 import { View, Text, Alert, FlatList } from "react-native";
 import { getPacienteById, Paciente, PacienteCreate, updatePaciente } from "../services/pacienteService";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Header from "../components/Header";
 import { StyleSheet } from "react-native";
 import {
@@ -33,14 +33,16 @@ const HomePaciente = ({ route }: HomePacienteScreenProps) => {
   const [endereco, setEndereco] = useState("");
   const [telefone, setTelefone] = useState("");
 
-  useEffect(() => {
-    if (route.params?.id != null) {
-      setAtendimentos([]);
-      setPaciente(null);
-      handleGetPacienteDetails();
-      handleGetAtendimentos();
-    }
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      if (route.params?.id != null) {
+        setAtendimentos([]);
+        setPaciente(null);
+        handleGetPacienteDetails();
+        handleGetAtendimentos();
+      }
+    }, [route.params.id])
+  );
 
   const handleGetPacienteDetails = () => {
     const { id } = route.params;

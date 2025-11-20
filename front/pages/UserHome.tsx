@@ -55,7 +55,6 @@ const UserHome = () => {
         payload.senha_confirmation = novaSenha;
       }
 
-      console.log("Enviando:", payload);
       await updateUser(payload, userId);
 
       setNovaSenha("");

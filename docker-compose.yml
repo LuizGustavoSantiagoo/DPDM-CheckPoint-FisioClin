@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: ./api
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: api_laravel
     volumes:
       - ./api:/var/www/html

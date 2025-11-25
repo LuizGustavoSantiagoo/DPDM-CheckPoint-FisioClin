@@ -1,4 +1,5 @@
-# FisioClin
+![API Status](https://img.shields.io/website?label=API%20Status&url=https://dpdm-checkpoint-fisioclin-production.up.railway.app/api/users)
+# FisioClin       
  Sobre o App: FisioClin é um aplicativo de gerenciamento para clínicas de fisioterapia, projetado para que o profissional possa otimizar o agendamento e o acompanhamento de seus pacientes. A plataforma centraliza o cadastro de pacientes e o registro de prontuários de forma eficiente.
 
 ## Funcionalidades Básicas (MVP)
